@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
@@ -70,10 +71,24 @@ class Article extends Model
             return $this->image;
         }
 
-        // Ambil dari .env
+        // Ambil konfigurasi Supabase (jika ada di local)
         $supabaseUrl = config('services.supabase.url');
         $bucket = config('services.supabase.bucket');
 
-        return "{$supabaseUrl}/storage/v1/object/public/{$bucket}/{$this->image}";
+        if ($supabaseUrl && $bucket) {
+            return rtrim($supabaseUrl, '/') . '/storage/v1/object/public/' . $bucket . '/' . ltrim($this->image, '/');
+        }
+
+        // Jika dideploy di Laravel Cloud / R2 / S3
+        if (env('AWS_URL')) {
+            return rtrim(env('AWS_URL'), '/') . '/' . ltrim($this->image, '/');
+        }
+
+        // Fallback ke Laravel Storage URL
+        try {
+            return Storage::disk('supabase')->url($this->image);
+        } catch (\Exception $e) {
+            return asset('storage/' . $this->image);
+        }
     }
 }
