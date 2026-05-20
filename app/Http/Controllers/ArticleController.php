@@ -69,8 +69,9 @@ class ArticleController extends Controller
             ->with('category')
             ->latest()
             ->paginate(10);
+        $categories = Category::all();
 
-        return view('my-articles', compact('articles'));
+        return view('my-articles', compact('articles', 'categories'));
     }
 
     public function adminOverview()
