@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-articles', [ArticleController::class, 'myArticles'])->name('artikel.my-articles');
     Route::get('/submit', [ArticleController::class, 'create'])->name('artikel.create');
     Route::post('/submit', [ArticleController::class, 'store'])->name('artikel.store');
+    Route::put('/artikel/{id}', [ArticleController::class, 'update'])->name('artikel.update');
     Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('artikel.like');
 
     // Comments

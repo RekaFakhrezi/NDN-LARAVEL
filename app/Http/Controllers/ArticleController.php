@@ -223,6 +223,11 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
+        // Check if user is admin OR the owner of the article
+        if (auth()->user()->role !== 'admin' && auth()->id() !== $article->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
@@ -252,6 +257,12 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->content = $request->content;
         $article->category_id = $request->category_id;
+
+        // If the user is not an admin, change the status back to pending
+        if (auth()->user()->role !== 'admin') {
+            $article->status = 'pending';
+        }
+
         $article->save();
 
         return redirect()->back()->with('success', 'Artikel berhasil diperbarui.');

@@ -242,7 +242,7 @@
                             ulang.</span>
                     </div>
 
-                    <form id="editForm" :action="`/admin/artikel/${editData.id}`" method="POST"
+                    <form id="editForm" :action="`/artikel/${editData.id}`" method="POST"
                         class="space-y-4 md:space-y-5">
                         @csrf
                         @method('PUT') <div>
