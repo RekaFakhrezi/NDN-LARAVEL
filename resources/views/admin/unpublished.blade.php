@@ -1,5 +1,4 @@
-<x-app-layout>
-    <x-admin-sidebar>
+<x-admin-sidebar>
 
         <h2 class="text-2xl font-black text-ink mb-6">Berita Diturunkan</h2>
 
@@ -32,4 +31,3 @@
         @endforelse
 
     </x-admin-sidebar>
-</x-app-layout>

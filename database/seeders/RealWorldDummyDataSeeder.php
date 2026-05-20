@@ -16,6 +16,7 @@ class RealWorldDummyDataSeeder extends Seeder
             'name' => 'Admin Utama',
             'email' => 'admin@wargapost.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'avatar' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&h=150&q=80',
         ]);
 
         $data = [
@@ -46,6 +47,34 @@ class RealWorldDummyDataSeeder extends Seeder
             ['category' => 'Energi', 'title' => 'Hemat Energi, Langkah Kecil untuk Dampak Besar', 'content' => "Penggunaan energi yang berlebihan menjadi masalah global. Kesadaran untuk hemat energi perlu ditingkatkan.\n\nLangkah sederhana seperti mematikan listrik saat tidak digunakan sudah membantu. Kebiasaan kecil bisa berdampak besar.\n\nPerubahan dimulai dari diri sendiri."],
         ];
 
+        $categoryImages = [
+            'Lingkungan' => 'https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&w=800&q=80',
+            'Teknologi' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+            'Pendidikan' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80',
+            'Opini' => 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80',
+            'Olahraga' => 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80',
+            'Berita' => 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+            'Budaya' => 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80',
+            'Ekonomi' => 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80',
+            'Psikologi' => 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80',
+            'Lifestyle' => 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80',
+            'Transportasi' => 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+            'Sosial' => 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80',
+            'Kuliner' => 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+            'Sains' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80',
+            'Hiburan' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+            'Kesehatan' => 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80',
+            'Politik' => 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=800&q=80',
+            'Startup' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+            'Gaming' => 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
+            'Kampus' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80',
+            'Organisasi' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80',
+            'Internet' => 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
+            'Inovasi' => 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80',
+            'Global' => 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
+            'Energi' => 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+        ];
+
         foreach ($data as $item) {
             $category = Category::firstOrCreate(
                 ['name' => $item['category']],
@@ -64,6 +93,7 @@ class RealWorldDummyDataSeeder extends Seeder
                 'view_count' => rand(100, 5000),
                 'featured' => rand(0, 10) > 8,
                 'spotlight' => rand(0, 10) > 7,
+                'image' => $categoryImages[$item['category']] ?? 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
                 'created_at' => now()->subDays(rand(0, 30)),
             ]);
         }

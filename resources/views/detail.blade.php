@@ -40,7 +40,7 @@
             <div class="bg-white p-4 border border-gray-200 rounded-xl shadow-sm flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
                 <div class="flex items-center gap-3">
                     @if($article->user && $article->user->avatar)
-                        <img src="{{ asset('storage/' . $article->user->avatar) }}" class="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0">
+                        <img src="{{ $article->user->avatar_url }}" class="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0">
                     @else
                         <div class="w-10 h-10 rounded-full bg-[#bd2828] text-white flex items-center justify-center font-bold text-sm shrink-0 select-none">
                             {{ strtoupper(substr($article->user->name ?? 'K', 0, 1)) }}
@@ -128,7 +128,7 @@
                                     @endauth
                                 </div>
                             </div>
-                            <p class="text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{ $comment->content }}</p>
+                            <p class="text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{ $comment->body }}</p>
 
                             @auth
                                 <button onclick="document.getElementById('reply-form-{{ $comment->id }}').classList.toggle('hidden')" class="mt-2 text-[10px] font-bold text-gray-400 hover:text-[#bd2828] transition-colors flex items-center gap-1">
@@ -165,7 +165,7 @@
                                                     @endauth
                                                 </div>
                                             </div>
-                                            <p class="text-xs text-gray-600 leading-relaxed">{{ $reply->content }}</p>
+                                            <p class="text-xs text-gray-600 leading-relaxed">{{ $reply->body }}</p>
                                         </div>
                                     @endforeach
                                 </div>
@@ -268,17 +268,6 @@
                     </div>
                 </div>
 
-                <div class="bg-[#bd2828] p-5 md:p-6 rounded-xl shadow-sm text-white">
-                    <h3 class="font-serif font-bold text-lg mb-2">Tetap Terinformasi</h3>
-                    <p class="text-xs text-red-100 mb-4 leading-relaxed">Dapatkan rangkuman berita terbaik langsung di email Anda setiap pagi.</p>
-                    <form action="#" method="POST" class="space-y-3">
-                        @csrf
-                        <input type="email" placeholder="Alamat Email Anda" class="w-full bg-white text-gray-900 border-none rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-white/50" required>
-                        <button type="button" class="w-full bg-white text-[#bd2828] font-bold text-xs uppercase tracking-wider py-2.5 rounded-md hover:bg-gray-100 transition">
-                            Berlangganan
-                        </button>
-                    </form>
-                </div>
                 
             </div>
 

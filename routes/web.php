@@ -37,6 +37,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/categories/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
+    // Admin Breaking News Routes
+    Route::get('/admin/breaking', [App\Http\Controllers\AdminBreakingNewsController::class, 'index'])->name('admin.breaking');
+    Route::put('/admin/breaking', [App\Http\Controllers\AdminBreakingNewsController::class, 'update'])->name('admin.breaking.update');
 });
 
 Route::middleware(['auth'])->group(function () {

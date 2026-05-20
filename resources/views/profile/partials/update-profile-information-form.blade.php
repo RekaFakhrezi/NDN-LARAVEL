@@ -24,7 +24,7 @@
         <div class="flex items-start gap-6">
             <div class="flex-shrink-0">
                 @if($user->avatar)
-                    <img src="{{ asset('storage/' . $user->avatar) }}" class="w-24 h-24 rounded-2xl object-cover border-2 border-border-light">
+                    <img src="{{ $user->avatar_url }}" class="w-24 h-24 rounded-2xl object-cover border-2 border-border-light">
                 @else
                     <div class="w-24 h-24 rounded-2xl bg-surface-2 flex items-center justify-center text-ink text-3xl font-black border-2 border-border-light">
                         {{ strtoupper(substr($user->name, 0, 1)) }}

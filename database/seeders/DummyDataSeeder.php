@@ -30,6 +30,7 @@ class DummyDataSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'is_admin' => false,
                 'bio' => 'Jurnalis lepas yang tertarik dengan teknologi dan budaya lokal.',
+                'avatar' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80',
             ]
         );
 
@@ -40,6 +41,7 @@ class DummyDataSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'is_admin' => false,
                 'bio' => 'Pengamat sosial dan pendidikan dari Yogyakarta.',
+                'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80',
             ]
         );
 
@@ -50,6 +52,7 @@ class DummyDataSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'is_admin' => false,
                 'bio' => 'Hanya seseorang yang suka membaca berita terbaru.',
+                'avatar' => 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150&h=150&q=80',
             ]
         );
 
@@ -81,6 +84,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => rand(100, 1500),
                 'featured' => true,
                 'spotlight' => false,
+                'image' => 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
             ],
             [
                 'title' => 'Pentingnya Ruang Terbuka Hijau di Tengah Padatnya Ibukota',
@@ -91,6 +95,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => rand(500, 3000),
                 'featured' => false,
                 'spotlight' => true,
+                'image' => 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80',
             ],
             [
                 'title' => 'Timnas U-20 Catatkan Sejarah Baru di Kancah Asia',
@@ -101,6 +106,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => rand(2000, 8000),
                 'featured' => true,
                 'spotlight' => true,
+                'image' => 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80',
             ],
             [
                 'title' => 'Festival Film Independen Sukses Digelar Secara Virtual',
@@ -111,6 +117,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => rand(300, 900),
                 'featured' => false,
                 'spotlight' => false,
+                'image' => 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80',
             ],
             [
                 'title' => 'Draf RUU Pendidikan Terbaru Picu Perdebatan di Kalangan Akademisi',
@@ -121,6 +128,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => 0,
                 'featured' => false,
                 'spotlight' => false,
+                'image' => 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
             ],
         ];
 
@@ -137,6 +145,7 @@ class DummyDataSeeder extends Seeder
                 'view_count' => $data['view_count'],
                 'featured' => $data['featured'],
                 'spotlight' => $data['spotlight'],
+                'image' => $data['image'],
                 'created_at' => now()->subDays(rand(1, 14))->subHours(rand(1, 23)),
             ]);
             $createdArticles[] = $article;

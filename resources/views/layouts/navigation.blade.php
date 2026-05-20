@@ -25,6 +25,8 @@
             <div class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="{{ route('home') }}" class="hover:text-red-200 transition">Home</a>
 
+
+
                 @auth
                     <a href="{{ route('artikel.create') }}" class="hover:text-red-200 transition">Submit News</a>
                     <a href="{{ route('artikel.my-articles') ?? '#' }}" class="hover:text-red-200 transition">My
@@ -129,6 +131,8 @@
 
             <a href="{{ route('home') }}" class="hover:bg-red-700/40 px-3 py-2 rounded transition">Home</a>
 
+
+
             @auth
                 <a href="{{ route('artikel.create') }}" class="hover:bg-red-700/40 px-3 py-2 rounded transition">Submit
                     News</a>
@@ -163,11 +167,20 @@
         </div>
     </nav>
 
+    @if(request()->routeIs('home'))
     <div class="bg-[#991b1b] text-white text-[10px] md:text-xs py-2 px-4 md:px-6 flex items-center">
         <div class="max-w-7xl mx-auto w-full flex items-center gap-3 md:gap-4 overflow-hidden">
             <span class="font-bold bg-[#7f1d1d] px-2 py-0.5 rounded shrink-0 tracking-wide">BREAKING:</span>
-            <p class="truncate opacity-90 whitespace-nowrap">Ibukota Nusantara Siap Diresmikan Bulan Depan. • Presiden
-                Kunjungi Papua Untuk Proyek Strategis. • Kurs Rupiah Menguat Terhadap Dollar AS. • NDN</p>
+            <div class="truncate opacity-90 whitespace-nowrap">
+                @if($breakingNewsShared->mode === 'article' && $breakingNewsShared->article)
+                    <a href="{{ route('artikel.show', $breakingNewsShared->article_id) }}" class="hover:underline hover:text-red-200 transition font-bold">
+                        🔥 {{ $breakingNewsShared->article->title }} • Klik di sini untuk membaca selengkapnya. • NDN
+                    </a>
+                @else
+                    {{ $breakingNewsShared->content }}
+                @endif
+            </div>
         </div>
     </div>
+    @endif
 </header>

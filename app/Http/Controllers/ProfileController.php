@@ -36,10 +36,10 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             // Delete old avatar if exists
             if ($user->avatar) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                \Illuminate\Support\Facades\Storage::disk('supabase')->delete($user->avatar);
             }
 
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $avatarPath = $request->file('avatar')->store('avatars', 'supabase');
             $user->avatar = $avatarPath;
         }
 
@@ -77,6 +77,15 @@ class ProfileController extends Controller
             ->latest()
             ->get();
 
-        return view('profile.show', compact('user', 'articles'));
+        $likedArticles = collect();
+        if (auth()->check() && auth()->id() == $id) {
+            $likedArticles = $user->likedArticles()
+                ->with('category', 'user')
+                ->where('status', 'approved')
+                ->latest()
+                ->get();
+        }
+
+        return view('profile.show', compact('user', 'articles', 'likedArticles'));
     }
 }

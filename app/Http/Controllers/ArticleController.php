@@ -298,6 +298,9 @@ class ArticleController extends Controller
     public function permanentDelete($id)
     {
         $article = Article::findOrFail($id);
+        if ($article->image) {
+            Storage::disk('supabase')->delete($article->image);
+        }
         $article->delete();
 
         return redirect()->route('admin.trash')
@@ -320,7 +323,7 @@ class ArticleController extends Controller
         $articles = Article::whereIn('id', $request->ids)->get();
         foreach ($articles as $article) {
             if ($article->image) {
-                Storage::disk('public')->delete($article->image);
+                Storage::disk('supabase')->delete($article->image);
             }
             $article->delete();
         }

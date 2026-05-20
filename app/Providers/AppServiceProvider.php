@@ -23,5 +23,13 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
+
+        view()->composer('*', function ($view) {
+            $view->with('categoriesShared', \App\Models\Category::all());
+            $view->with('breakingNewsShared', \App\Models\BreakingNews::with('article')->first() ?? new \App\Models\BreakingNews([
+                'mode' => 'custom',
+                'content' => 'Ibukota Nusantara Siap Diresmikan Bulan Depan. • Presiden Kunjungi Papua Untuk Proyek Strategis. • Kurs Rupiah Menguat Terhadap Dollar AS. • NDN'
+            ]));
+        });
     }
 }

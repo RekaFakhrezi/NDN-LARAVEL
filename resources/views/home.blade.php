@@ -46,15 +46,36 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row md:items-center justify-between border-t border-gray-100 pt-3 md:pt-4 gap-3">
-                        <div class="flex items-center gap-2 overflow-x-auto py-1 w-full md:w-auto no-scrollbar">
-                            <a href="{{ route('home', array_merge(request()->except('category', 'page'))) }}" class="whitespace-nowrap px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-bold transition shadow-sm border {{ !request('category') ? 'bg-[#a31d1d] text-white border-[#a31d1d]' : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
-                                Semua
-                            </a>
-                            @foreach($categories as $cat)
-                                <a href="{{ route('home', array_merge(request()->except('page'), ['category' => $cat->id])) }}" class="whitespace-nowrap px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-bold transition shadow-sm border {{ request('category') == $cat->id ? 'bg-[#a31d1d] text-white border-[#a31d1d]' : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
-                                    {{ $cat->name }}
+                        <!-- Dropdown Kategori Beranda -->
+                        <div class="relative w-full md:w-auto" x-data="{ openCat: false }">
+                            <button @click="openCat = !openCat" @click.away="openCat = false" type="button" class="flex items-center justify-between gap-3 px-5 py-2.5 bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl text-xs md:text-sm font-bold text-gray-700 shadow-sm hover:bg-gray-100 focus:outline-none transition min-w-[200px] w-full md:w-auto">
+                                <span class="flex items-center gap-2">
+                                    @if(request('category'))
+                                        @php $currentCat = $categories->firstWhere('id', request('category')); @endphp
+                                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: {{ $currentCat->color ?? '#bd2828' }}"></span>
+                                        <span>Kategori: {{ $currentCat->name }}</span>
+                                    @else
+                                        <span class="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+                                        <span>Semua Kategori</span>
+                                    @endif
+                                </span>
+                                <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" :class="openCat ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+
+                            <div x-show="openCat" x-cloak x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute left-0 mt-2 w-full md:w-60 rounded-xl bg-white border border-gray-150 shadow-lg z-50 py-1.5 focus:outline-none max-h-64 overflow-y-auto custom-scrollbar">
+                                <a href="{{ route('home', array_merge(request()->except('category', 'page'))) }}" class="flex items-center gap-2 px-4 py-2 text-xs md:text-sm font-semibold {{ !request('category') ? 'bg-red-50 text-[#bd2828]' : 'text-gray-700 hover:bg-gray-50' }} transition">
+                                    <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                                    Semua Kategori
                                 </a>
-                            @endforeach
+                                @foreach($categories as $cat)
+                                    <a href="{{ route('home', array_merge(request()->except('page'), ['category' => $cat->id])) }}" class="flex items-center gap-2 px-4 py-2 text-xs md:text-sm font-semibold {{ request('category') == $cat->id ? 'bg-red-50 text-[#bd2828]' : 'text-gray-700 hover:bg-gray-50' }} transition">
+                                        <span class="w-2 h-2 rounded-full" style="background-color: {{ $cat->color ?? '#bd2828' }}"></span>
+                                        {{ $cat->name }}
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
 
                         <div class="flex items-center gap-2 shrink-0">
