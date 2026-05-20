@@ -1,242 +1,63 @@
-<div align="center">
+<<<<<<< HEAD
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# 🗞️ Nusantara Daily News (NDN)
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-**Portal Berita Kolaboratif Berbasis Laravel**
+## About Laravel
 
-[![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![Alpine.js](https://img.shields.io/badge/Alpine.js-3-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-*Suara Rakyat, Berita Terpercaya*
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-</div>
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
----
+## Learning Laravel
 
-## 📖 Tentang Proyek
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-**Nusantara Daily News (NDN)** adalah platform portal berita kolaboratif yang memungkinkan siapa saja menjadi jurnalis warga. Pembaca dapat mengirimkan berita, yang kemudian melewati sistem moderasi oleh tim admin sebelum tayang di beranda utama.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-Dibangun dengan filosofi desain premium — tipografi serif elegan, palet warna jurnalistik merah-putih (`#bd2828` & `#fafafa`), dan antarmuka yang responsif di semua ukuran layar.
+## Laravel Sponsors
 
----
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-## ✨ Fitur Utama
+### Premium Partners
 
-### 👥 Untuk Pembaca & Penulis
-- 📰 **Beranda Dinamis** — Featured article, berita terkini, filter kategori & pencarian
-- 📝 **Submit Berita** — Form penulisan berita dengan upload & crop gambar via Cropper.js
-- 💬 **Komentar & Balasan** — Sistem komentar bersarang (*nested reply*)
-- ❤️ **Sistem Like** — Like artikel secara real-time tanpa reload halaman (AJAX)
-- 🔔 **Pusat Notifikasi** — Notifikasi untuk approval, penolakan, dan likes artikel
-- 📋 **Artikel Saya** — Pantau status artikel yang sudah dikirim
-- 👤 **Profil Publik** — Halaman profil penulis yang bisa dikunjungi
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-### 👑 Untuk Administrator
-- 📊 **Dashboard Overview** — KPI cards: total berita, views, likes, pengguna, dan antrian pending
-- ✅ **Antrean Moderasi** — Approve atau tolak artikel dengan notifikasi otomatis ke penulis
-- 📁 **Manajemen Artikel** — Filter per kategori, set featured, turunkan, atau trash artikel
-- 🏷️ **Manajemen Kategori** — CRUD kategori dengan color picker badge dinamis
-- 📡 **Breaking News** — Kelola ticker berita bergerak di halaman utama
-- 🗑️ **Tempat Sampah** — Restore atau hapus permanen beserta aset gambarnya
-- 🔍 **Pencarian Admin** — Cari artikel di semua halaman admin secara langsung
-- ☆ **Toggle Featured** — Set artikel utama dengan ikon bintang premium
+## Contributing
 
----
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## 🛠️ Tech Stack
+## Code of Conduct
 
-| Layer | Teknologi |
-|---|---|
-| **Backend** | Laravel 11 (PHP 8.2+) |
-| **Frontend** | Blade Templating + Alpine.js |
-| **Styling** | Tailwind CSS 3 + Vite |
-| **Database** | MySQL / PostgreSQL |
-| **Cloud Storage** | Supabase Storage (S3-compatible) |
-| **Image Crop** | Cropper.js |
-| **Font** | Playfair Display (Serif) + Inter (Sans) |
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
----
+## Security Vulnerabilities
 
-## 🗄️ Struktur Database
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-```
-users               — Akun pengguna & admin
-articles            — Artikel berita (status: pending/approved/unpublished/trashed)
-categories          — Kategori berita dengan warna badge
-article_likes       — Relasi many-to-many likes
-comments            — Komentar & balasan bersarang
-notifications       — Notifikasi in-app per pengguna
-breaking_news       — Konten ticker breaking news
-```
+## License
 
----
-
-## 🚀 Instalasi Lokal
-
-### Prasyarat
-- PHP >= 8.2
-- Composer
-- Node.js & NPM
-- MySQL atau PostgreSQL
-- Akun Supabase (untuk storage gambar)
-
-### Langkah Instalasi
-
-```bash
-# 1. Clone repository
-git clone https://github.com/RekaFakhrezi/NDN-LARAVEL.git
-cd NDN-LARAVEL
-
-# 2. Install dependensi PHP
-composer install
-
-# 3. Install dependensi Node.js
-npm install
-
-# 4. Salin file environment
-cp .env.example .env
-
-# 5. Generate application key
-php artisan key:generate
-
-# 6. Konfigurasi database di file .env
-# DB_CONNECTION=mysql
-# DB_HOST=127.0.0.1
-# DB_PORT=3306
-# DB_DATABASE=ndn_laravel
-# DB_USERNAME=root
-# DB_PASSWORD=
-
-# 7. Konfigurasi Supabase Storage di .env
-# SUPABASE_URL=https://xxxxx.supabase.co
-# SUPABASE_KEY=your-service-role-key
-# SUPABASE_BUCKET=your-bucket-name
-
-# 8. Jalankan migrasi
-php artisan migrate
-
-# 9. (Opsional) Isi data dummy
-php artisan db:seed --class=DatabaseSeeder
-
-# 10. Build assets frontend
-npm run build
-
-# 11. Jalankan server
-php artisan serve
-```
-
-Buka browser di `http://localhost:8000`
-
-### Development Mode
-
-```bash
-# Jalankan server PHP dan Vite secara bersamaan
-php artisan serve
-npm run dev
-```
-
----
-
-## ⚙️ Konfigurasi `.env` Penting
-
-```env
-APP_NAME="Nusantara Daily News"
-APP_URL=http://localhost:8000
-
-# Database
-DB_CONNECTION=mysql
-DB_DATABASE=ndn_laravel
-
-# Supabase Storage
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-service-role-key
-SUPABASE_BUCKET=ndn-storage
-SUPABASE_REGION=ap-southeast-1
-```
-
----
-
-## 👑 Membuat Akun Admin
-
-Setelah register, set kolom `is_admin = 1` di tabel `users` secara langsung via database, atau gunakan Tinker:
-
-```bash
-php artisan tinker
-
-# Di dalam Tinker:
-\App\Models\User::where('email', 'admin@email.com')->update(['is_admin' => true, 'role' => 'admin']);
-```
-
----
-
-## 📁 Struktur Direktori Penting
-
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── Auth/               # Login & Register
-│   │   ├── ArticleController.php
-│   │   ├── CategoryController.php
-│   │   ├── CommentController.php
-│   │   ├── HomeController.php
-│   │   ├── NotificationController.php
-│   │   ├── ProfileController.php
-│   │   └── AdminBreakingNewsController.php
-│   └── Middleware/
-└── Models/
-    ├── Article.php
-    ├── Category.php
-    ├── Comment.php
-    ├── Notification.php
-    ├── ArticleLike.php
-    └── User.php
-
-resources/views/
-├── admin/                      # Semua halaman Admin Panel
-│   ├── overview.blade.php
-│   ├── published.blade.php
-│   ├── unpublished.blade.php
-│   ├── trash.blade.php
-│   ├── categories.blade.php
-│   ├── breaking.blade.php
-│   └── edit.blade.php
-├── components/
-│   ├── admin-sidebar.blade.php # Layout utama admin
-│   └── app-layout.blade.php    # Layout utama publik
-├── auth/                       # Login & Register
-├── profile/                    # Halaman profil user
-├── home.blade.php
-├── detail.blade.php
-├── kirim.blade.php
-└── my-articles.blade.php
-
-routes/
-├── web.php                     # Semua route aplikasi
-└── auth.php                    # Route login/register/logout
-```
-
----
-
-## 🔐 Sistem Otorisasi
-
-| Route | Middleware | Akses |
-|---|---|---|
-| `/` `/artikel/*` `/penulis/*` | — | Semua pengunjung |
-| `/submit` `/my-articles` `/profile` | `auth` | User yang login |
-| `/admin/*` | `auth` + `admin` | Admin saja |
-
----
-
-## 📜 Lisensi
-
-Proyek ini merupakan karya akademis/portofolio pribadi.
-
----
-
-<div align="center">
-  <b>Nusantara Daily News</b> — Dibuat dengan ❤️ menggunakan Laravel
-</div>
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# NusantaraDailyNews
+>>>>>>> 2ae1b226d73da3002831e123eb9b529d0f571414

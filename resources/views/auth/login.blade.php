@@ -85,6 +85,9 @@
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
                             <label class="block text-[10px] md:text-[11px] font-bold text-gray-600 uppercase tracking-widest">Kata Sandi</label>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}" class="text-[10px] md:text-[11px] font-bold text-[#a31d1d] hover:underline cursor-pointer">Lupa Sandi?</a>
+                            @endif
                         </div>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
