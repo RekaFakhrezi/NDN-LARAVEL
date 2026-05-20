@@ -12,9 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-    $middleware->alias([
-        'admin' => AdminMiddleware::class,
-    ]);
+        // Trust all proxies — required for Laravel Cloud, Vercel, Railway, etc.
+        // Without this, HTTPS is not detected correctly → CSRF cookie fails → 419 error
+        $middleware->trustProxies(at: '*');
+
+        $middleware->alias([
+            'admin' => AdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
