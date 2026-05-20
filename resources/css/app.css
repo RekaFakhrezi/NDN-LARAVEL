@@ -68,6 +68,15 @@ h6 {
     background: #9ca3af;
 }
 
+/* ===== HIDE SCROLLBAR UTILITY ===== */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 /* ===== GLASSMORPHISM UTILITIES ===== */
 .glass-card {
     background: rgba(255, 255, 255, 0.55);

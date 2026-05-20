@@ -1,6 +1,30 @@
 <x-admin-sidebar>
 
-        <h2 class="text-2xl font-black text-ink mb-6">Tempat Sampah (Trash)</h2>
+        <h2 class="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-6">Tempat Sampah (Trash)</h2>
+
+        <!-- Categories Dropdown Filter -->
+        <div class="mb-8 flex flex-wrap items-center bg-white p-3.5 rounded-2xl border border-gray-200/60 shadow-sm gap-3">
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Filter Kategori:</span>
+            
+            <div class="relative min-w-[200px]">
+                <select onchange="window.location.href=this.value" 
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2 pl-4 pr-10 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#bd2828] focus:ring-1 focus:ring-[#bd2828] cursor-pointer appearance-none">
+                    <option value="{{ request()->fullUrlWithQuery(['category_id' => null]) }}" {{ !request('category_id') ? 'selected' : '' }}>
+                        Semua Kategori
+                    </option>
+                    @foreach($categories as $cat)
+                        <option value="{{ request()->fullUrlWithQuery(['category_id' => $cat->id]) }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+                            {{ $cat->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
 
         <form action="{{ route('admin.bulkDestroy') }}" method="POST" id="bulkDestroyForm">
             @csrf
@@ -25,7 +49,7 @@
                     <input type="checkbox" name="ids[]" value="{{ $article->id }}" form="bulkDestroyForm" class="article-checkbox w-5 h-5 rounded border-border-light text-ink focus:ring-ink transition-all shadow-sm bg-white">
                 </div>
                 <div class="flex justify-between items-start mb-1 pr-10">
-                    <h3 class="text-lg font-bold text-ink">{{ $article->title }}</h3>
+                    <h3 class="text-lg md:text-xl font-serif font-bold text-gray-900">{{ $article->title }}</h3>
                     <span class="px-2.5 py-1 rounded-xl text-xs font-bold text-white flex-shrink-0" 
                           style="background: {{ $article->trashed_reason === 'rejected' ? '#ef4444' : '#f59e0b' }};">
                         {{ $article->trashed_reason === 'rejected' ? 'REJECTED' : 'DELETED' }}

@@ -93,8 +93,19 @@ class ArticleController extends Controller
 
     public function admin()
     {
-        $articles = Article::where('status', 'pending')->latest()->get();
-        return view('admin', compact('articles'));
+        $query = Article::where('status', 'pending');
+
+        if (request()->has('search') && request('search') !== '') {
+            $query->search(request('search'));
+        }
+
+        if (request()->has('category_id') && request('category_id') !== '') {
+            $query->where('category_id', request('category_id'));
+        }
+
+        $articles = $query->latest()->get();
+        $categories = Category::all();
+        return view('admin', compact('articles', 'categories'));
     }
 
     public function approve($id)
@@ -150,15 +161,26 @@ class ArticleController extends Controller
 
     public function published()
     {
-        $articles = Article::where('status', 'approved')
-            ->with(['category', 'user'])
-            ->latest()
+        $query = Article::where('status', 'approved')
+            ->with(['category', 'user']);
+
+        if (request()->has('search') && request('search') !== '') {
+            $query->search(request('search'));
+        }
+
+        if (request()->has('category_id') && request('category_id') !== '') {
+            $query->where('category_id', request('category_id'));
+        }
+
+        $articles = $query->latest()
             ->get()
             ->groupBy(function ($article) {
                 return $article->category ? $article->category->name : 'Tanpa Kategori';
             });
 
-        return view('admin.published', compact('articles'));
+        $categories = Category::all();
+
+        return view('admin.published', compact('articles', 'categories'));
     }
 
     public function unpublish($id)
@@ -270,8 +292,19 @@ class ArticleController extends Controller
 
     public function unpublished()
     {
-        $articles = Article::where('status', 'unpublished')->latest()->get();
-        return view('admin.unpublished', compact('articles'));
+        $query = Article::where('status', 'unpublished');
+
+        if (request()->has('search') && request('search') !== '') {
+            $query->search(request('search'));
+        }
+
+        if (request()->has('category_id') && request('category_id') !== '') {
+            $query->where('category_id', request('category_id'));
+        }
+
+        $articles = $query->latest()->get();
+        $categories = Category::all();
+        return view('admin.unpublished', compact('articles', 'categories'));
     }
 
     public function republish($id)
@@ -286,8 +319,19 @@ class ArticleController extends Controller
 
     public function trash()
     {
-        $articles = Article::where('status', 'trashed')->latest()->get();
-        return view('admin.trash', compact('articles'));
+        $query = Article::where('status', 'trashed');
+
+        if (request()->has('search') && request('search') !== '') {
+            $query->search(request('search'));
+        }
+
+        if (request()->has('category_id') && request('category_id') !== '') {
+            $query->where('category_id', request('category_id'));
+        }
+
+        $articles = $query->latest()->get();
+        $categories = Category::all();
+        return view('admin.trash', compact('articles', 'categories'));
     }
 
     public function restore($id)
