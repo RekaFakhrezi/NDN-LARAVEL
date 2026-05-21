@@ -1,135 +1,175 @@
 <x-admin-sidebar>
 
-        <h2 class="text-2xl font-black text-ink mb-6">Berita Tayang</h2>
+    <!-- Form Bulk Trash (Ditempatkan di luar untuk menghindari nesting form) -->
+    <form action="{{ route('admin.bulkTrash') }}" method="POST" id="bulkTrashForm">
+        @csrf
+    </form>
 
-        <form action="{{ route('admin.bulkTrash') }}" method="POST" id="bulkTrashForm">
-            @csrf
-        </form>
-
-        <div class="mb-6 flex items-center justify-between bg-surface-2 p-3 rounded-xl border border-border-light">
-            <label class="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" id="selectAll" class="w-5 h-5 rounded border-border-light text-ink focus:ring-ink transition-all">
-                <span class="text-sm font-black text-ink">Pilih Semua</span>
+    <!-- Header Halaman dengan Pilih Semua & Aksi Massal di Kanan -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-gray-900">Berita Tayang</h2>
+            <p class="text-xs text-gray-500 mt-1">Daftar semua artikel jurnalis warga yang sedang aktif terbit saat ini.</p>
+        </div>
+        
+        <div class="flex items-center gap-3 self-end sm:self-auto">
+            <label class="flex items-center gap-2 cursor-pointer bg-white border border-gray-200 px-4 py-2.5 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
+                <input type="checkbox" id="selectAll" class="w-4 h-4 rounded border-gray-300 text-[#bd2828] focus:ring-[#bd2828] transition-all cursor-pointer">
+                <span class="text-xs font-bold text-gray-700 select-none">Pilih Semua</span>
             </label>
-            <button type="submit" form="bulkTrashForm" id="bulkActionBtn" class="hidden items-center gap-2 bg-red-50 hover:bg-red-500 text-red-600 hover:text-white px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-black transition-colors border border-red-200 hover:border-red-500" onclick="return confirm('Pindahkan berita yang dipilih ke Trash?')">
+            <button type="submit" form="bulkTrashForm" id="bulkActionBtn" class="hidden items-center gap-1.5 bg-red-50 hover:bg-red-500 text-red-600 hover:text-white px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold transition-all border border-red-200 hover:border-red-500 shadow-sm" onclick="return confirm('Pindahkan berita yang dipilih ke Tempat Sampah?')">
                 <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                Trash <span id="selectedCount">0</span>
+                Trash (<span id="selectedCount">0</span>)
             </button>
         </div>
+    </div>
 
-        @forelse($articles as $categoryName => $categoryArticles)
-            <div class="mb-12 last:mb-0">
-                <div class="flex items-center gap-3 mb-6">
-                    <h3 class="text-xl font-black text-ink">{{ $categoryName }}</h3>
-                    <span class="bg-surface-2 text-ink-muted text-xs font-bold px-2.5 py-1 rounded-lg border border-border-light">{{ count($categoryArticles) }} Berita</span>
-                    <div class="flex-1 h-px bg-border-light/50"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach($categoryArticles as $article)
-                        <div class="glass-card rounded-3xl overflow-hidden hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col border border-white/40">
-                            <!-- Card Header with Checkbox and Category Badge -->
-                            <div class="p-5 pb-0 flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    @if($article->category)
-                                        <span class="px-2.5 py-1 rounded-lg text-xs font-black shadow-sm" style="background: {{ $article->category->color }}dd; color: #fff;">{{ $article->category->name }}</span>
-                                    @endif
-                                    @if($article->featured)
-                                        <span class="bg-emerald-500/90 text-white px-2.5 py-1 rounded-lg text-[10px] uppercase tracking-wider font-black shadow-sm">★ Featured</span>
-                                    @endif
-                                </div>
-                                <input type="checkbox" name="ids[]" value="{{ $article->id }}" form="bulkTrashForm" class="article-checkbox w-5 h-5 rounded border-2 border-border-light text-ink focus:ring-ink transition-all bg-white cursor-pointer">
-                            </div>
-
-                            <!-- Content Section -->
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h4 class="text-lg font-black text-ink leading-tight mb-3 line-clamp-2" title="{{ $article->title }}">{{ $article->title }}</h4>
-                                
-                                <div class="flex items-center gap-3 mb-4 text-xs font-bold text-ink-muted">
-                                    <div class="flex items-center gap-1.5 min-w-0">
-                                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                        <span class="truncate">{{ $article->user->name ?? 'Unknown' }}</span>
-                                    </div>
-                                    <div class="flex items-center gap-1.5 flex-shrink-0">
-                                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        <span>{{ $article->created_at->format('d M y') }}</span>
-                                    </div>
-                                    <div class="flex items-center gap-1 flex-shrink-0 text-red-500 ml-auto">
-                                        <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
-                                        <span>{{ $article->likes_count ?? $article->likes()->count() }}</span>
-                                    </div>
-                                </div>
-
-                                <div class="mt-auto pt-4 flex flex-col gap-2 border-t border-border-light border-dashed">
-                                    <!-- Action Buttons -->
-                                    <div class="flex gap-2">
-                                        <a href="{{ route('artikel.show', $article->id) }}" class="flex-1 text-center bg-ink hover:bg-ink-dark text-surface px-3 py-2 rounded-xl text-xs font-black transition-colors" title="Lihat">Lihat</a>
-                                        <a href="{{ route('admin.edit', $article->id) }}" class="flex-1 text-center bg-surface hover:bg-surface-2 text-ink border border-border-light px-3 py-2 rounded-xl text-xs font-black transition-colors" title="Edit">Edit</a>
-                                    </div>
-                                    
-                                    <div class="flex gap-2">
-                                        @if(! $article->featured)
-                                        <form action="{{ route('admin.setFeatured', $article->id) }}" method="POST" class="flex-1">
-                                            @csrf
-                                            <button class="w-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white px-2 py-2 rounded-xl text-[10px] uppercase tracking-wider font-black transition-colors border border-emerald-200 hover:border-emerald-500" onclick="return confirm('Set sebagai featured?')">Featured</button>
-                                        </form>
-                                        @endif
-                                        <form action="{{ route('admin.destroy', $article->id) }}" method="POST" class="flex-1">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="w-full bg-amber-50 hover:bg-amber-500 text-amber-600 hover:text-white px-2 py-2 rounded-xl text-[10px] uppercase tracking-wider font-black transition-colors border border-amber-200 hover:border-amber-500" onclick="return confirm('Turunkan berita ini ke Tempat Sampah?')">Turunkan</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Filter & Pencarian Kontrol -->
+    <div class="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
+        <form action="{{ route('admin.published') }}" method="GET" class="flex flex-col sm:flex-row gap-3 items-center w-full">
+            <div class="relative flex-1 w-full">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berita tayang..." class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[#bd2828] focus:ring-1 focus:ring-[#bd2828] focus:bg-white transition-all">
+                <svg class="w-4 h-4 absolute left-3.5 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <div class="w-full sm:w-64">
+                <select name="category_id" onchange="this.form.submit()" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-[#bd2828] focus:ring-1 focus:ring-[#bd2828] focus:bg-white transition-all cursor-pointer">
+                    <option value="">Semua Kategori</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
+                </select>
+            </div>
+            @if(request()->filled('search') || request()->filled('category_id'))
+                <a href="{{ route('admin.published') }}" class="text-xs font-bold text-[#bd2828] hover:underline whitespace-nowrap px-2">Reset Filter</a>
+            @endif
+        </form>
+    </div>
+
+    <!-- List Berita Tayang (Card Horizontal) -->
+    <div class="space-y-4">
+        @forelse($articles as $article)
+            <div class="bg-white border border-gray-200 rounded-xl p-5 md:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row gap-5 relative group">
+                
+                <!-- Checkbox Pemilihan Bulk di Kiri Card -->
+                <div class="absolute top-5 left-5 sm:static sm:flex sm:items-center sm:shrink-0 z-10">
+                    <input type="checkbox" name="ids[]" value="{{ $article->id }}" form="bulkTrashForm" class="article-checkbox w-4 h-4 rounded border-gray-300 text-[#bd2828] focus:ring-[#bd2828] transition-all cursor-pointer bg-white">
                 </div>
+
+                <!-- Thumbnail Gambar di Kiri -->
+                <div class="w-full sm:w-40 h-28 shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 relative ml-8 sm:ml-0">
+                    @if($article->image_url)
+                        <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover">
+                    @else
+                        <div class="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-400">
+                            <svg class="w-8 h-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-[9px] uppercase tracking-wider font-bold mt-1 opacity-60">No Image</span>
+                        </div>
+                    @endif
+
+                    <!-- Tombol Bintang Toggle Featured di Pojok Kanan Atas Thumbnail -->
+                    <div class="absolute top-2 right-2 z-20">
+                        <form action="{{ route('admin.setFeatured', $article->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="p-1.5 rounded-lg border {{ $article->featured ? 'bg-amber-500 border-amber-500 text-white' : 'bg-white/80 backdrop-blur-sm border-gray-200 text-gray-500 hover:text-amber-500 hover:bg-white hover:border-amber-500' }} shadow-sm transition-all hover:scale-105" title="{{ $article->featured ? 'Featured' : 'Set Featured' }}" onclick="return confirm('Set berita ini sebagai Featured utama?')">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Detail di Tengah -->
+                <div class="flex-1 min-w-0 ml-8 sm:ml-0">
+                    <div class="flex items-center gap-2 mb-2">
+                        @if($article->category)
+                            <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white shadow-sm" style="background: {{ $article->category->color }}dd;">
+                                {{ $article->category->name }}
+                            </span>
+                        @endif
+                        <span class="text-xs font-bold text-gray-400">{{ $article->created_at->format('d M Y H:i') }}</span>
+                    </div>
+
+                    <h3 class="text-base md:text-lg font-serif font-bold text-gray-900 mb-1.5 group-hover:text-[#bd2828] transition-colors line-clamp-1" title="{{ $article->title }}">
+                        <a href="{{ route('artikel.show', $article->id) }}">{{ $article->title }}</a>
+                    </h3>
+
+                    <p class="text-xs text-gray-500 font-medium mb-3">
+                        Oleh: <span class="font-bold text-gray-700">{{ $article->user->name ?? 'Anonim' }}</span>
+                        <span class="mx-2 text-gray-300">|</span>
+                        ❤️ {{ $article->likes_count ?? $article->likes()->count() }} Likes
+                        <span class="mx-2 text-gray-300">|</span>
+                        👁️ {{ number_format($article->view_count ?? 0) }} Views
+                    </p>
+
+                    <p class="text-xs md:text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                        {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 180) }}
+                    </p>
+                </div>
+
+                <!-- Tombol Aksi di Kanan -->
+                <div class="flex flex-row sm:flex-col gap-2 shrink-0 w-full sm:w-32 justify-end sm:justify-start pt-4 sm:pt-0 border-t sm:border-t-0 sm:border-l border-gray-100 sm:pl-5 ml-8 sm:ml-0">
+                    <a href="{{ route('artikel.show', $article->id) }}" class="flex-1 sm:flex-none text-center bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 px-3 py-2 rounded-lg text-xs font-bold transition-all" title="Lihat">
+                        Lihat
+                    </a>
+                    <a href="{{ route('admin.edit', $article->id) }}" class="flex-1 sm:flex-none text-center bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 px-3 py-2 rounded-lg text-xs font-bold transition-all" title="Edit">
+                        Edit
+                    </a>
+                    <form action="{{ route('admin.unpublish', $article->id) }}" method="POST" class="flex-1 sm:flex-none">
+                        @csrf
+                        <button class="w-full bg-red-50 hover:bg-red-500 text-red-600 hover:text-white px-3 py-2 rounded-lg text-xs font-bold transition-all border border-red-200 hover:border-red-500" onclick="return confirm('Turunkan berita ini?')">
+                            Turunkan
+                        </button>
+                    </form>
+                </div>
+
+
+
             </div>
         @empty
-            <div class="glass-card rounded-3xl p-16 text-center border border-white/40 flex flex-col items-center justify-center">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-surface-2 border border-border-light mb-5 shadow-sm">
-                    <svg class="w-10 h-10 text-ink-muted/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 4v6h6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14h6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 10h6"></path></svg>
+            <div class="bg-white border-2 border-dashed border-gray-300 rounded-xl p-16 text-center flex flex-col items-center justify-center shadow-sm">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-50 border border-gray-200 mb-5 shadow-sm">
+                    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 4v6h6"></path></svg>
                 </div>
-                <h3 class="text-xl font-black text-ink mb-2">Belum Ada Berita</h3>
-                <p class="text-ink-muted max-w-sm mx-auto">Tidak ada satupun berita yang tayang saat ini. Berita yang sudah tayang akan muncul di sini.</p>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 font-serif">Belum Ada Berita</h3>
+                <p class="text-gray-500 max-w-sm mx-auto text-sm">Tidak ada berita yang tayang atau sesuai dengan filter pencarian saat ini.</p>
             </div>
         @endforelse
+    </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const selectAll = document.getElementById('selectAll');
-                const checkboxes = document.querySelectorAll('.article-checkbox');
-                const bulkActionBtn = document.getElementById('bulkActionBtn');
-                const selectedCount = document.getElementById('selectedCount');
+    <!-- Script Handling Select All & Bulk Action -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('.article-checkbox');
+            const bulkActionBtn = document.getElementById('bulkActionBtn');
+            const selectedCount = document.getElementById('selectedCount');
 
-                function updateBulkButton() {
-                    const checkedList = document.querySelectorAll('.article-checkbox:checked');
-                    if (checkedList.length > 0) {
-                        bulkActionBtn.classList.remove('hidden');
-                        bulkActionBtn.classList.add('flex');
-                        selectedCount.textContent = checkedList.length;
-                    } else {
-                        bulkActionBtn.classList.add('hidden');
-                        bulkActionBtn.classList.remove('flex');
-                    }
+            function updateBulkButton() {
+                const checkedList = document.querySelectorAll('.article-checkbox:checked');
+                if (checkedList.length > 0) {
+                    bulkActionBtn.classList.remove('hidden');
+                    bulkActionBtn.classList.add('inline-flex');
+                    selectedCount.textContent = checkedList.length;
+                } else {
+                    bulkActionBtn.classList.add('hidden');
+                    bulkActionBtn.classList.remove('inline-flex');
                 }
+            }
 
-                if(selectAll) {
-                    selectAll.addEventListener('change', function() {
-                        checkboxes.forEach(cb => cb.checked = this.checked);
-                        updateBulkButton();
-                    });
-                }
+            if(selectAll) {
+                selectAll.addEventListener('change', function() {
+                    checkboxes.forEach(cb => cb.checked = this.checked);
+                    updateBulkButton();
+                });
+            }
 
-                checkboxes.forEach(cb => {
-                    cb.addEventListener('change', function() {
-                        if (!this.checked) selectAll.checked = false;
-                        if (document.querySelectorAll('.article-checkbox:checked').length === checkboxes.length) selectAll.checked = true;
-                        updateBulkButton();
-                    });
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function() {
+                    if (!this.checked) selectAll.checked = false;
+                    if (document.querySelectorAll('.article-checkbox:checked').length === checkboxes.length) selectAll.checked = true;
+                    updateBulkButton();
                 });
             });
-        </script>
+        });
+    </script>
 
-    </x-admin-sidebar>
+</x-admin-sidebar>

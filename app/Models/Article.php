@@ -28,6 +28,32 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        if (!$search) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', '%' . $search . '%')
+              ->orWhere('content', 'like', '%' . $search . '%')
+              ->orWhereHas('user', function ($uq) use ($search) {
+                  $uq->where('name', 'like', '%' . $search . '%');
+              })
+              ->orWhereHas('category', function ($cq) use ($search) {
+                  $cq->where('name', 'like', '%' . $search . '%');
+              });
+        });
+    }
+
+    public function scopeCategory($query, $categoryId)
+    {
+        if (!$categoryId) {
+            return $query;
+        }
+        return $query->where('category_id', $categoryId);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

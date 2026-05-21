@@ -55,11 +55,12 @@
                     <div class="flex items-center gap-3">
                         @if(Auth::user()->is_admin)
                             <a href="{{ url('/admin') }}"
-                                class="bg-red-900 text-white px-4 py-2 rounded-full font-bold hover:bg-red-800 transition shadow-sm border border-red-700 text-xs tracking-wider uppercase">Admin
-                                Panel</a>
+                                class="bg-[#8f1d1d] hover:bg-[#7a1717] text-white px-4 py-2.5 rounded-md font-bold transition shadow-sm border border-red-800/30 text-xs tracking-wider uppercase flex items-center justify-center">
+                                Admin Panel
+                            </a>
                         @endif
                         <a href="{{ route('profile.show', Auth::id()) }}"
-                            class="bg-white text-center text-[#bd2828] px-4 py-2.5 rounded-md font-bold shadow-sm">
+                            class="bg-white text-center text-[#bd2828] px-4 py-2.5 rounded-md font-bold shadow-sm flex items-center justify-center">
                             Profil Saya
                         </a>
 
