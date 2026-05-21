@@ -71,21 +71,7 @@
 
                     <div>
                         <label class="block text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">Isi Berita *</label>
-                        
-                        <div class="border border-gray-300 rounded-t-md bg-gray-50 p-2.5 flex items-center gap-3 md:gap-4 border-b-0 text-xs md:text-sm font-bold text-gray-700">
-                            <button type="button" class="hover:text-[#bd2828] px-1 font-black">B</button>
-                            <button type="button" class="hover:text-[#bd2828] px-1 font-serif italic">I</button>
-                            <button type="button" class="hover:text-[#bd2828] px-1 underline">U</button>
-                            <span class="text-gray-300">|</span>
-                            <button type="button" class="hover:text-[#bd2828] px-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-                            </button>
-                            <button type="button" class="hover:text-[#bd2828] px-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                            </button>
-                        </div>
-                        
-                        <textarea name="content" rows="12" placeholder="Tuliskan berita lengkap Anda di sini secara objektif dan mendalam..." class="w-full bg-white border border-gray-300 rounded-b-md py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#bd2828] focus:border-[#bd2828] resize-y" required>{{ old('content') }}</textarea>
+                        <textarea name="content" rows="12" placeholder="Tuliskan berita lengkap Anda di sini secara objektif dan mendalam..." class="w-full bg-white border border-gray-300 rounded-md py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#bd2828] focus:border-[#bd2828] resize-y" required>{{ old('content') }}</textarea>
                     </div>
 
                     <div class="pt-2">
