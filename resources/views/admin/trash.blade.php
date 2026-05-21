@@ -50,7 +50,7 @@
     <div class="space-y-4">
         @forelse($articles as $article)
             <div class="bg-white border border-gray-200 rounded-xl p-5 md:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row gap-5 relative group border-l-4"
-                 style="border-left-color: {{ $article->trashed_reason === 'rejected' ? '#ef4444' : '#f59e0b' }};">
+                 style="border-left-color: {{ $article->status === 'unpublished' ? '#3b82f6' : ($article->trashed_reason === 'rejected' ? '#ef4444' : '#f59e0b') }};">
                 
                 <!-- Checkbox Pemilihan Bulk di Kiri Card -->
                 <div class="absolute top-5 left-5 sm:static sm:flex sm:items-center sm:shrink-0 z-10">
@@ -78,8 +78,8 @@
                             </span>
                         @endif
                         <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white shadow-sm"
-                              style="background: {{ $article->trashed_reason === 'rejected' ? '#ef4444' : '#f59e0b' }};">
-                            {{ $article->trashed_reason === 'rejected' ? 'REJECTED' : 'DELETED' }}
+                              style="background: {{ $article->status === 'unpublished' ? '#3b82f6' : ($article->trashed_reason === 'rejected' ? '#ef4444' : '#f59e0b') }};">
+                            {{ $article->status === 'unpublished' ? 'UNPUBLISHED' : ($article->trashed_reason === 'rejected' ? 'REJECTED' : 'DELETED') }}
                         </span>
                         <span class="text-xs font-bold text-gray-400">{{ $article->updated_at->format('d M Y H:i') }}</span>
                     </div>

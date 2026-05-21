@@ -315,7 +315,7 @@ class ArticleController extends Controller
 
     public function trash()
     {
-        $query = Article::where('status', 'trashed')->with(['category', 'user']);
+        $query = Article::whereIn('status', ['trashed', 'unpublished'])->with(['category', 'user']);
 
         if (request()->filled('search')) {
             $query->search(request('search'));
